@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #100e0c;
+  --color-surface: #1c1713;
+  --color-fg: #f4ead8;
+  --color-muted: #b3a494;
+  --color-primary: #e2a04a;
+  --color-border: #3a3128;
+  --color-ink: #0c0a09;
+  --font-display: "Cinzel", Georgia, serif;
+  --font-sans: "Figtree", "Segoe UI", sans-serif;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html,
+  body {
+    height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+}
+
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 42%, var(--color-bg) 100%);
+}
+
+.caption {
+  text-shadow: 0 2px 16px var(--color-bg);
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  color: var(--color-fg);
+}
+
+.choice {
+  min-height: 2.75rem;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-fg);
+  padding: 0.5rem 0.4rem;
+}
+
+.choice-on {
+  background: var(--color-primary);
+  color: var(--color-ink);
+  border-color: var(--color-primary);
+}
+
+.ghost-btn {
+  min-height: 2.75rem;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  color: var(--color-fg);
+  padding: 0 1rem;
+}
+
+.check-pulse {
+  animation: war-pulse 0.9s ease-in-out infinite;
+}
+
+@keyframes war-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-pulse {
+    animation: none;
+  }
+}

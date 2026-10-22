@@ -1,0 +1,16 @@
+node_modules
+dist
+.output
+.vercel
+.nitro
+artifacts
+attachments
+screenshots
+.grok
+*.log
+.env
+.env.*
+.DS_Store
+coverage
+playwright-report
+test-results
