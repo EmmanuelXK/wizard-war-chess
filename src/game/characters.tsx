@@ -141,77 +141,147 @@ function Eyes({
   )
 }
 
+const CURLS: [number, number, number, number][] = [
+  [0, 0.17, -0.02, 0.1],
+  [-0.11, 0.13, 0.0, 0.082],
+  [0.11, 0.12, 0.0, 0.086],
+  [-0.14, 0.04, -0.02, 0.068],
+  [0.14, 0.04, -0.02, 0.07],
+  [-0.06, 0.16, -0.08, 0.078],
+  [0.06, 0.17, -0.07, 0.072],
+  [0, 0.21, 0.0, 0.068],
+]
+
 export function Pawn({ actor }: { actor: Actor }) {
   const rig = useHumanRig(actor)
-  const { body, trim, metal, mats } = useTone(actor.color)
+  const mats = useMats()
   const pale = actor.color === "w"
-  const mark = pale ? mats.gold : mats.cold
+  const skin = pale ? mats.skin : mats.skinDark
+  const hair = pale ? mats.hair : mats.hairDark
+  const cape = pale ? mats.cape : mats.capeDark
+  const tunic = pale ? mats.tunic : mats.vest
+  const pants = pale ? mats.pants : mats.pantsDark
+  const sleeve = pale ? mats.sleeve : mats.sleeveDark
+  const leather = pale ? mats.leather : mats.leatherDark
+  const wood = pale ? mats.wood : mats.woodDark
+  const scarf = pale ? mats.cape : mats.scarf
   return (
     <group ref={rig.hip}>
-      <Leg pivot={rig.legL} x={-0.11} y={0.4} body={body} boot={trim} bulk={1.2} />
-      <Leg pivot={rig.legR} x={0.11} y={0.4} body={body} boot={trim} bulk={1.2} />
-      <mesh position={[0, 0.52, 0]} material={body} castShadow dispose={null}>
-        <cylinderGeometry args={[0.17, 0.22, 0.3, 8]} />
+      <Leg pivot={rig.legL} x={-0.09} y={0.42} body={pants} boot={leather} bulk={1.05} />
+      <Leg pivot={rig.legR} x={0.09} y={0.42} body={pants} boot={leather} bulk={1.05} />
+      <mesh position={[0, 0.48, 0]} material={tunic} castShadow dispose={null}>
+        <cylinderGeometry args={[0.13, 0.17, 0.16, 8]} />
       </mesh>
-      <mesh position={[0, 0.4, 0]} rotation={[Math.PI / 2, 0, 0]} material={mats.gold} dispose={null}>
-        <torusGeometry args={[0.2, 0.03, 6, 14]} />
+      <mesh position={[0, 0.68, 0.03]} material={tunic} castShadow dispose={null}>
+        <boxGeometry args={[0.26, 0.28, 0.18]} />
       </mesh>
-      <mesh position={[0, 0.76, 0.02]} material={body} castShadow dispose={null}>
-        <boxGeometry args={[0.38, 0.28, 0.22]} />
-      </mesh>
-      <mesh position={[-0.22, 0.88, 0]} material={trim} castShadow dispose={null}>
-        <boxGeometry args={[0.14, 0.08, 0.18]} />
-      </mesh>
-      <mesh position={[0.22, 0.88, 0]} material={trim} castShadow dispose={null}>
-        <boxGeometry args={[0.14, 0.08, 0.18]} />
-      </mesh>
-      <group ref={rig.head} position={[0, 1.12, 0]}>
-        <mesh material={body} castShadow dispose={null}>
-          <sphereGeometry args={[0.17, 12, 10]} />
+      {[0.78, 0.69, 0.6].map((y) => (
+        <mesh key={y} position={[0.02, y, 0.13]} material={mats.gold} dispose={null}>
+          <sphereGeometry args={[0.02, 6, 6]} />
         </mesh>
-        <mesh position={[0, 0.02, 0]} rotation={[Math.PI / 2, 0, 0]} material={trim} dispose={null}>
-          <cylinderGeometry args={[0.22, 0.22, 0.04, 14]} />
+      ))}
+      <mesh position={[0, 0.545, 0.02]} material={leather} dispose={null}>
+        <boxGeometry args={[0.3, 0.045, 0.18]} />
+      </mesh>
+      <mesh position={[0, 0.545, 0.115]} material={mats.gold} dispose={null}>
+        <boxGeometry args={[0.07, 0.05, 0.02]} />
+      </mesh>
+      <mesh position={[0.13, 0.5, 0.07]} material={leather} castShadow dispose={null}>
+        <boxGeometry args={[0.07, 0.08, 0.05]} />
+      </mesh>
+      <mesh position={[0, 0.8, 0]} rotation={[Math.PI / 2, 0, 0]} material={scarf} dispose={null}>
+        <torusGeometry args={[0.1, 0.032, 6, 12]} />
+      </mesh>
+      <group position={[0, 0.7, -0.1]}>
+        <mesh position={[0, -0.3, -0.04]} rotation={[0.45, 0, 0]} material={cape} castShadow dispose={null}>
+          <boxGeometry args={[0.3, 0.52, 0.022]} />
         </mesh>
-        <mesh position={[0, 0.1, 0]} scale={[1, 0.62, 1]} material={trim} castShadow dispose={null}>
-          <sphereGeometry args={[0.16, 12, 8]} />
+        <mesh position={[0, -0.28, -0.02]} rotation={[0.45, 0, 0]} material={mats.lining} dispose={null}>
+          <boxGeometry args={[0.22, 0.4, 0.01]} />
         </mesh>
-        {pale ? (
-          <mesh position={[0, 0.02, 0.17]} material={mats.gold} dispose={null}>
-            <boxGeometry args={[0.035, 0.14, 0.04]} />
-          </mesh>
-        ) : (
-          <>
-            <mesh position={[-0.1, 0.2, 0.02]} rotation={[0, 0, 0.55]} material={trim} castShadow dispose={null}>
-              <coneGeometry args={[0.045, 0.22, 5]} />
-            </mesh>
-            <mesh position={[0.1, 0.2, 0.02]} rotation={[0, 0, -0.55]} material={trim} castShadow dispose={null}>
-              <coneGeometry args={[0.045, 0.22, 5]} />
-            </mesh>
-          </>
-        )}
-        <Eyes y={0.02} z={0.16} gap={pale ? 0.055 : 0.032} s={pale ? 0.03 : 0.018} mat={pale ? mats.ember : mats.cold} />
-      </group>
-      <Arm pivot={rig.armL} x={-0.28} y={0.88} body={body} bulk={1.2}>
-        <mesh position={[0, -0.08, 0.16]} rotation={[1.05, 0, 0]} material={trim} castShadow dispose={null}>
-          <cylinderGeometry args={[0.2, 0.2, 0.05, 16]} />
+        <mesh position={[-0.14, -0.26, 0.0]} rotation={[0.4, 0.05, 0.28]} material={cape} castShadow dispose={null}>
+          <boxGeometry args={[0.1, 0.46, 0.018]} />
         </mesh>
-        <mesh position={[0, -0.02, 0.2]} rotation={[1.05, 0, 0]} material={mark} dispose={null}>
-          <sphereGeometry args={[0.05, 8, 8]} />
+        <mesh position={[0.14, -0.26, 0.0]} rotation={[0.4, -0.05, -0.28]} material={cape} castShadow dispose={null}>
+          <boxGeometry args={[0.1, 0.46, 0.018]} />
         </mesh>
         {!pale && (
-          <mesh position={[0, 0.08, 0.26]} rotation={[1.05, 0, 0]} material={trim} dispose={null}>
-            <coneGeometry args={[0.045, 0.12, 5]} />
+          <mesh position={[0, -0.54, -0.08]} rotation={[0.45, 0, 0]} material={mats.gold} dispose={null}>
+            <boxGeometry args={[0.3, 0.02, 0.016]} />
           </mesh>
         )}
-      </Arm>
-      <Arm pivot={rig.armR} x={0.26} y={0.9} body={body} bulk={1.1}>
-        <mesh position={[0, -0.16, 0.3]} rotation={[Math.PI / 2, 0, 0]} material={metal} dispose={null}>
-          <cylinderGeometry args={[0.034, 0.028, 0.52, 6]} />
+      </group>
+      <mesh position={[0.08, 0.78, 0.1]} rotation={[0.3, 0.2, 0.7]} scale={[0.55, 1.15, 0.22]} material={mats.gold} dispose={null}>
+        <sphereGeometry args={[0.045, 6, 5]} />
+      </mesh>
+      <group ref={rig.head} position={[0, 0.98, 0.02]}>
+        <mesh material={skin} castShadow dispose={null}>
+          <sphereGeometry args={[0.16, 14, 12]} />
         </mesh>
-        <mesh position={[0, -0.16, 0.6]} rotation={[Math.PI / 2, 0, 0]} material={mark} dispose={null}>
-          <coneGeometry args={[0.075, 0.18, 6]} />
+        <mesh position={[0, -0.02, 0.15]} material={skin} dispose={null}>
+          <sphereGeometry args={[0.028, 6, 5]} />
         </mesh>
-      </Arm>
+        <mesh position={[-0.175, 0.03, 0.02]} rotation={[0.2, 0, Math.PI / 2.4]} material={skin} castShadow dispose={null}>
+          <coneGeometry args={[0.038, 0.12, 5]} />
+        </mesh>
+        <mesh position={[0.175, 0.03, 0.02]} rotation={[0.2, 0, -Math.PI / 2.4]} material={skin} castShadow dispose={null}>
+          <coneGeometry args={[0.038, 0.12, 5]} />
+        </mesh>
+        {CURLS.map(([x, y, z, r], i) => (
+          <mesh key={i} position={[x, y, z]} material={hair} castShadow dispose={null}>
+            <sphereGeometry args={[r, 8, 6]} />
+          </mesh>
+        ))}
+        {[-1, 1].map((side) => (
+          <group key={side} position={[side * 0.06, 0.04, 0.13]}>
+            <mesh material={mats.eyeWhite} dispose={null}>
+              <sphereGeometry args={[0.046, 8, 6]} />
+            </mesh>
+            <mesh position={[0, -0.004, 0.028]} material={mats.iris} dispose={null}>
+              <sphereGeometry args={[0.024, 7, 6]} />
+            </mesh>
+            <mesh position={[0, -0.004, 0.044]} material={mats.pupil} dispose={null}>
+              <sphereGeometry args={[0.012, 6, 5]} />
+            </mesh>
+          </group>
+        ))}
+        <mesh position={[-0.058, 0.09, 0.13]} rotation={[0.2, 0, 0.35]} material={hair} dispose={null}>
+          <boxGeometry args={[0.055, 0.014, 0.016]} />
+        </mesh>
+        <mesh position={[0.058, 0.09, 0.13]} rotation={[0.2, 0, -0.35]} material={hair} dispose={null}>
+          <boxGeometry args={[0.055, 0.014, 0.016]} />
+        </mesh>
+      </group>
+      <group ref={rig.armL} position={[-0.18, 0.74, 0]}>
+        <mesh position={[0, -0.1, 0]} material={sleeve} castShadow dispose={null}>
+          <cylinderGeometry args={[0.046, 0.036, 0.16, 7]} />
+        </mesh>
+        <mesh position={[0, -0.2, 0.02]} material={skin} dispose={null}>
+          <sphereGeometry args={[0.042, 8, 6]} />
+        </mesh>
+        <group position={[-0.03, -0.2, 0.06]} rotation={[0.06, 0, 0.22]}>
+          <mesh position={[0, 0.34, 0]} material={wood} castShadow dispose={null}>
+            <cylinderGeometry args={[0.024, 0.032, 1.28, 7]} />
+          </mesh>
+          <mesh position={[0, 1.02, 0]} material={wood} castShadow dispose={null}>
+            <octahedronGeometry args={[0.055, 0]} />
+          </mesh>
+          <mesh position={[0, 0.55, 0]} rotation={[Math.PI / 2, 0, 0]} material={mats.gold} dispose={null}>
+            <torusGeometry args={[0.034, 0.008, 5, 10]} />
+          </mesh>
+          <mesh position={[0, 0.12, 0]} rotation={[Math.PI / 2, 0, 0]} material={leather} dispose={null}>
+            <torusGeometry args={[0.03, 0.007, 4, 8]} />
+          </mesh>
+        </group>
+      </group>
+      <group ref={rig.armR} position={[0.18, 0.74, 0]}>
+        <mesh position={[0, -0.1, 0]} material={sleeve} castShadow dispose={null}>
+          <cylinderGeometry args={[0.044, 0.034, 0.16, 7]} />
+        </mesh>
+        <mesh position={[0, -0.2, 0.03]} material={skin} dispose={null}>
+          <sphereGeometry args={[0.04, 8, 6]} />
+        </mesh>
+      </group>
     </group>
   )
 }

@@ -222,8 +222,8 @@ function writeWalk(actor: Actor, dt: number) {
   }
   pose.legL = Math.sin(w) * 0.7
   pose.legR = Math.sin(w + Math.PI) * 0.7
-  pose.armL = Math.sin(w + Math.PI) * 0.45
-  pose.armR = Math.sin(w) * 0.4
+  pose.armL = Math.sin(w + Math.PI) * (actor.type === "p" ? 0.16 : 0.45)
+  pose.armR = Math.sin(w) * (actor.type === "p" ? 0.22 : 0.4)
   pose.bob = Math.abs(Math.sin(w)) * (actor.type === "r" ? 0.05 : 0.035)
   pose.lean = actor.type === "r" ? 0.16 : 0.12
   pose.twist = 0
@@ -254,13 +254,13 @@ function writeStrike(actor: Actor, u: number) {
     return
   }
   if (actor.type === "p") {
-    pose.armR = -0.25 * wind - 1.35 * strike
-    pose.armL = 0.35
-    pose.lean = -0.2 * wind + 0.4 * strike
-    pose.lunge = strike * 0.42
-    pose.legL = 0.35 * strike
-    pose.legR = -0.12
-    pose.neck = -0.15 * wind + 0.2 * strike
+    pose.armL = 0.9 * wind - 1.65 * strike
+    pose.armR = -0.35 * strike
+    pose.lean = -0.42 * wind + 0.62 * strike
+    pose.lunge = 0.12 * wind + strike * 0.5
+    pose.legL = 0.4 * strike
+    pose.legR = -0.2 * wind
+    pose.neck = -0.25 * wind + 0.28 * strike
     pose.twist = 0
     return
   }
@@ -418,10 +418,11 @@ function shatter(victim: Actor | undefined, attacker: Actor | undefined) {
     let s = 0.08 * heavy
     let spin = 6
     if (kind === "p") {
-      vx = fx * (2.1 + (i % 3) * 0.35) + Math.cos(spread) * 0.4
-      vz = fz * (2.1 + (i % 3) * 0.35) + Math.sin(spread) * 0.4
-      vy = 0.7 + (i % 4) * 0.2
-      s = 0.045 * heavy
+      vx = Math.cos(spread) * (1.15 + (i % 3) * 0.28)
+      vz = Math.sin(spread) * (1.15 + (i % 3) * 0.28)
+      vy = 2.6 + (i % 5) * 0.32
+      s = 0.032 * heavy
+      spin = 12
     } else if (kind === "n") {
       vx = Math.cos(spread) * (2.6 + (i % 2) * 0.8)
       vz = Math.sin(spread) * (2.6 + (i % 2) * 0.8)

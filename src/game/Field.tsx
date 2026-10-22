@@ -320,29 +320,85 @@ function drawWizard(g: CanvasRenderingContext2D, type: string, pale: boolean, cx
   g.fillStyle = pale ? "#221c16" : "#f4efe6"
   g.strokeStyle = pale ? "#f7f1e6" : "#1a140f"
   if (type === "p") {
+    const cape = pale ? "#c3272e" : "#6a717a"
+    const tunic = pale ? "#5e7342" : "#4a3226"
+    const skin = pale ? "#f2c4a2" : "#8d5638"
+    const hair = pale ? "#7a4a28" : "#1c120e"
+    const wood = pale ? "#7a5134" : "#4e3422"
+    const ink = "#1a140f"
+    g.lineJoin = "round"
+    g.lineCap = "round"
+    g.strokeStyle = wood
+    g.lineWidth = 3.4
     g.beginPath()
-    g.moveTo(46, 4)
-    g.lineTo(51, 14)
-    g.lineTo(41, 14)
-    g.closePath()
-    strokeFill(g)
-    g.beginPath()
-    g.moveTo(46, 14)
-    g.lineTo(46, 56)
+    g.moveTo(50, 5)
+    g.lineTo(47, 58)
     g.stroke()
+    g.fillStyle = wood
     g.beginPath()
-    g.ellipse(18, 36, 8, 11, 0, 0, Math.PI * 2)
-    strokeFill(g)
-    g.beginPath()
-    g.moveTo(22, 24)
-    g.lineTo(40, 22)
-    g.lineTo(44, 56)
-    g.lineTo(18, 56)
+    g.moveTo(50, 1)
+    g.lineTo(54, 8)
+    g.lineTo(46, 8)
     g.closePath()
-    strokeFill(g)
+    g.fill()
+    g.fillStyle = "#d7a44a"
+    g.fillRect(47, 16, 6, 2.4)
+    g.fillStyle = cape
+    g.strokeStyle = pale ? "#f4efe6" : "#d7a44a"
+    g.lineWidth = 2
     g.beginPath()
-    g.arc(31, 16, 8, 0, Math.PI * 2)
-    strokeFill(g)
+    g.moveTo(14, 26)
+    g.lineTo(32, 18)
+    g.lineTo(46, 26)
+    g.lineTo(42, 56)
+    g.lineTo(16, 56)
+    g.closePath()
+    g.fill()
+    g.stroke()
+    g.fillStyle = tunic
+    g.strokeStyle = ink
+    g.lineWidth = 2
+    g.beginPath()
+    g.moveTo(24, 30)
+    g.lineTo(40, 30)
+    g.lineTo(38, 52)
+    g.lineTo(26, 52)
+    g.closePath()
+    g.fill()
+    g.stroke()
+    g.fillStyle = skin
+    g.beginPath()
+    g.arc(32, 20, 7.2, 0, Math.PI * 2)
+    g.fill()
+    g.stroke()
+    g.fillStyle = hair
+    g.beginPath()
+    g.arc(32, 14, 5.2, Math.PI, 0)
+    g.arc(26, 16, 3.1, 0, Math.PI * 2)
+    g.arc(38, 16, 3.1, 0, Math.PI * 2)
+    g.fill()
+    g.strokeStyle = skin
+    g.beginPath()
+    g.moveTo(24, 20)
+    g.lineTo(20, 18)
+    g.lineTo(24, 16)
+    g.moveTo(40, 20)
+    g.lineTo(44, 18)
+    g.lineTo(40, 16)
+    g.stroke()
+    g.fillStyle = "#140c09"
+    g.beginPath()
+    g.arc(29, 20, 1.1, 0, Math.PI * 2)
+    g.arc(35, 20, 1.1, 0, Math.PI * 2)
+    g.fill()
+    g.fillStyle = "#d7a44a"
+    g.beginPath()
+    g.moveTo(36, 32)
+    g.lineTo(39, 35)
+    g.lineTo(36, 38)
+    g.lineTo(33, 35)
+    g.closePath()
+    g.fill()
   } else if (type === "n") {
     g.beginPath()
     g.moveTo(6, 50)

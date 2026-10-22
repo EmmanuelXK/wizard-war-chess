@@ -51,7 +51,7 @@ export function ActorView({ actor }: { actor: Actor }) {
     }
   })
 
-  const scale = actor.type === "p" ? 0.92 : actor.type === "n" ? 0.9 : actor.type === "b" ? 0.96 : actor.type === "k" ? 1.02 : 0.98
+  const scale = actor.type === "p" ? 1 : actor.type === "n" ? 0.9 : actor.type === "b" ? 0.96 : actor.type === "k" ? 1.02 : 0.98
   const bodyMesh =
     actor.type === "n" ? (
       <Knight actor={actor} />

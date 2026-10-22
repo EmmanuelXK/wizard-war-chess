@@ -21,6 +21,27 @@ export type Mats = {
   dot: THREE.MeshBasicMaterial
   ring: THREE.MeshBasicMaterial
   flame: THREE.MeshBasicMaterial
+  skin: THREE.MeshStandardMaterial
+  skinDark: THREE.MeshStandardMaterial
+  hair: THREE.MeshStandardMaterial
+  hairDark: THREE.MeshStandardMaterial
+  cape: THREE.MeshStandardMaterial
+  capeDark: THREE.MeshStandardMaterial
+  lining: THREE.MeshStandardMaterial
+  tunic: THREE.MeshStandardMaterial
+  vest: THREE.MeshStandardMaterial
+  pants: THREE.MeshStandardMaterial
+  pantsDark: THREE.MeshStandardMaterial
+  sleeve: THREE.MeshStandardMaterial
+  sleeveDark: THREE.MeshStandardMaterial
+  leather: THREE.MeshStandardMaterial
+  leatherDark: THREE.MeshStandardMaterial
+  scarf: THREE.MeshStandardMaterial
+  wood: THREE.MeshStandardMaterial
+  woodDark: THREE.MeshStandardMaterial
+  eyeWhite: THREE.MeshStandardMaterial
+  iris: THREE.MeshStandardMaterial
+  pupil: THREE.MeshStandardMaterial
 }
 
 const Ctx = createContext<Mats | null>(null)
@@ -139,6 +160,27 @@ export function Materials({ children }: { children: ReactNode }) {
         opacity: 0.9,
         depthWrite: false,
       }),
+      skin: stoneMat(palette.skin, 0.72, 0.02),
+      skinDark: stoneMat(palette.skinDark, 0.68, 0.03),
+      hair: stoneMat(palette.hair, 0.88, 0.02),
+      hairDark: stoneMat(palette.hairDark, 0.82, 0.04),
+      cape: stoneMat(palette.cape, 0.78, 0.02),
+      capeDark: stoneMat(palette.capeDark, 0.7, 0.08),
+      lining: stoneMat(palette.lining, 0.8, 0.02),
+      tunic: stoneMat(palette.tunic, 0.82, 0.02),
+      vest: stoneMat(palette.vest, 0.74, 0.06),
+      pants: stoneMat(palette.pants, 0.84, 0.02),
+      pantsDark: stoneMat(palette.pantsDark, 0.8, 0.04),
+      sleeve: stoneMat(palette.sleeve, 0.86, 0.01),
+      sleeveDark: stoneMat(palette.sleeveDark, 0.84, 0.02),
+      leather: stoneMat(palette.leather, 0.62, 0.08),
+      leatherDark: stoneMat(palette.leatherDark, 0.58, 0.1),
+      scarf: stoneMat(palette.scarf, 0.8, 0.02),
+      wood: stoneMat(palette.wood, 0.86, 0.02),
+      woodDark: stoneMat(palette.woodDark, 0.84, 0.03),
+      eyeWhite: stoneMat(palette.eyeWhite, 0.4, 0.02),
+      iris: stoneMat(palette.iris, 0.45, 0.04),
+      pupil: stoneMat(palette.pupil, 0.35, 0.05),
     }
     made.tileLight.polygonOffset = true
     made.tileLight.polygonOffsetFactor = -1
